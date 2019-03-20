@@ -4,7 +4,7 @@
 
 # Không mã hóa khoảng trống (32)
 
-def Cesare_encode(plainText, k):
+def encrypt(plainText, k):
     cipherText = ""
     for i in range(len(plainText)):
         if plainText[i] == " ":
@@ -13,7 +13,7 @@ def Cesare_encode(plainText, k):
             cipherText += chr((ord(plainText[i]) - 33 + k) % 94 + 33) # 126 - 33 + 1 = 94
     return cipherText
 
-def Cesare_decode(cipherText, k):
+def decrypt(cipherText, k):
     plainText = ""
     for i in range(len(cipherText)):
         if cipherText[i] == " ":
@@ -22,7 +22,28 @@ def Cesare_decode(cipherText, k):
             plainText += chr((ord(cipherText[i]) - 33 - k) % 94 + 33) # 126 - 33 + 1 = 94
     return plainText
 
+def Ceasar_encode():
+    print('Nhập bản rõ: ')
+    plainText = str(input())
+    print('Nhập khóa k = ')
+    k = int(input())
+    while k < 0:
+        print('Nhập lại khóa k = ')
+        k = int(input())
+    cipherText = encrypt(plainText, k)
+    print('Bản mã: %s' % cipherText)
 
-cipherText = Cesare_encode("Nguyen the Anh 123 012212", 17)
-print(cipherText)
-print(Cesare_decode(cipherText, 17))
+def Ceasar_decode():
+    print('Nhập bản mã: ')
+    cipherText = str(input())
+    print('Nhập khóa k = ')
+    k = int(input())
+    while k < 0:
+        print('Nhập lại khóa k = ')
+        k = int(input())
+    plainText = decrypt(cipherText, k)
+    print('Bản rõ: %s' % plainText)
+
+
+Ceasar_encode()
+Ceasar_decode()

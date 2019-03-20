@@ -2,6 +2,7 @@
 
 # Mã hóa chuỗi ký tự bất kỳ sử dụng mật mã nhân (không mã hóa khoảng trống)
 
+# Hàm tìm ước chung lớn nhất
 def gcd(a, b):
     while b > 0:
         q = a // b
@@ -10,7 +11,7 @@ def gcd(a, b):
     return a
 
 # Hàm tìm nghịch đảo của k (k')
-def module_inverse(k, n): # với n bất kỳ
+def module_inverse(k, n = 94): # với n bất kỳ
     t1, t2 = 0, 1
     while k > 0:
         q = n // k
@@ -20,11 +21,10 @@ def module_inverse(k, n): # với n bất kỳ
         t1, t2 = t2, t
     if n == 1: 
         return t1
-    else:
-        return 0 # với 0 là không tồn tại nghịch đảo của k với phép module n
+    return 0 # với 0 là không tồn tại nghịch đảo của k với phép module n
 
 # Hàm mã hóa mật mã nhân
-def encode(plainText, k):
+def encrypt(plainText, k):
     cipherText = ""
     for i in range(len(plainText)):
         if plainText[i] == " ":
@@ -34,7 +34,7 @@ def encode(plainText, k):
     return cipherText
 
 # Hàm giải mã mật mã nhân
-def decode(cipherText, k):
+def decrypt(cipherText, k):
     k = module_inverse(k, 94)
     if k != 0:
         plainText = ""
@@ -46,11 +46,31 @@ def decode(cipherText, k):
         return plainText
     return 0 # Không thể giải mã được
 
-print("Nhập chuỗi cần mã hóa: ")
-plainText = str(input())
-print("Nhập k: ")
-k = int(input())
+def multiplicativeCipher_encode():
+    print('Nhập bản rõ: ')
+    plainText = str(input())
+    print("Nhập k: ")
+    k = int(input())
+    while k < 0:
+        print("Nhập lại k: ")
+        k = int(input())
+    cipherText = encrypt(plainText, k)
+    print('Bản mã: %s' % cipherText)
 
-cipherText = encode(plainText, k) 
-print(cipherText)
-print(decode(cipherText, k))
+def multiplicativeCipher_decode():
+    print('Nhập bản mã: ')
+    cipherText = str(input())
+    print("Nhập k: ")
+    k = int(input())
+    while k < 0:
+        print("Nhập lại k: ")
+        k = int(input())
+    plainText = decrypt(cipherText, k)
+    if plainText == 0:
+        print('Không thể giải mã !')
+    else:
+        print('Bản mã: %s' % plainText)
+
+# Main
+multiplicativeCipher_encode()
+multiplicativeCipher_decode()

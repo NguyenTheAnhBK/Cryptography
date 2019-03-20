@@ -7,14 +7,14 @@
 # Không phải lúc nào k' cũng tồn tại . Vd: k=4 ta không thể tìm được khả nghịch của k theo module n
 # Có thể chứng minh được rằng: k' luôn luôn tồn tại nếu gcd(k, n) = 1 (gcd là ƯCLN)
 
-alpha_upper = "ABCDEFGHIGKLMNOPQRSTUVWXYZ"
+alpha_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 #Giải thuật mã hóa
 def encrypted(string_input, k):
     string_output = ""
     input_len = len(string_input)
     for i in range(input_len):
-        string_output += alpha_upper[(alpha_upper.find(string_input[i]) * k) % 26]
+        string_output += alpha_upper[(alpha_upper.find(string_input[i]) * k) % len(alpha_upper)]
     return string_output
 
 #Giải thuật giải mã
@@ -22,7 +22,7 @@ def decrypted(string_input, k): #k' là khả nghịch của k theo module n
     string_output = ""
     input_len = len(string_input)
     for i in range(input_len):
-        string_output += alpha_upper[(alpha_upper.find(string_input[i]) * k) % 26]
+        string_output += alpha_upper[(alpha_upper.find(string_input[i]) * k) % len(alpha_upper)]
     return string_output
 
 #Tìm khả nghịch của k
@@ -39,7 +39,7 @@ def module_inverse(n, k): #với n = 26
     return 0 # Không tồn tại khả nghịch của k thưo module n
 
 #Test
-ciphertext = encrypted("TRUONGBACHKHOA", 17)
+ciphertext = encrypted("LYTHUYETMATMA", 5)
 print(ciphertext)
 #Giải mã
-plaintext = print(decrypted(ciphertext, module_inverse(26, 17)))
+plaintext = print(decrypted(ciphertext, module_inverse(26, 5)))
